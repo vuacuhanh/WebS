@@ -1,10 +1,10 @@
-.login-wrapper * {
+.register-form * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.login-wrapper{
+.register-form{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +14,7 @@
     background-position: center;
 }
 
-.login-wrapper {
+.register-form {
     .wrapper {
         width: 420px;
         background-color: transparent;

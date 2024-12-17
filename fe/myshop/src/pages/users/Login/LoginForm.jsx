@@ -3,7 +3,8 @@ import './Login.scss'
 import { FaLock, FaUser,FaFacebook,FaEnvelope } from 'react-icons/fa'
 export const LoginForm = () => {
   return (
-    <div className='wrapper' >
+    <div className='login-wrapper'>
+      <div className='wrapper' >
       <form action= "">
         <h1>LOGIN</h1>
         <div className='input-box'>
@@ -26,10 +27,12 @@ export const LoginForm = () => {
           </ul>
         </div>
         <div className='register-link'>
-         <p>Don't have an account? <a href='#'>Register</a></p> 
+         <p>Don't have an account? <a href='/register'>Register</a></p> 
         </div>
       </form>
     </div>
+    </div>
+    
   )
 }
 export default LoginForm

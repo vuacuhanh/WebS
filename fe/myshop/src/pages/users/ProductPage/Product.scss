@@ -1,0 +1,113 @@
+/* Container chính */
+.product-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+  /* Sidebar Menu */
+.menu {
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+  
+    .menu-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+  
+    .menu-list {
+      list-style: none;
+      padding: 0;
+  
+      .menu-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        color: #333;
+        border-radius: 4px;
+        transition: background 0.3s ease;
+        border-bottom: 1px solid #ddd;
+  
+        &:hover,
+        &.active {
+          background: var(--accent-color);
+          color: white;
+        }
+      }
+    }
+  }
+  /* Thẻ sản phẩm */
+  .product-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  /* Bookmark */
+  .bookmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: url("data:image/svg+xml;base64,...") no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+  }
+  
+  /* Hình ảnh */
+  .product-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Nội dung sản phẩm */
+  .product-info {
+    padding: 10px;
+  
+    .product-name {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+      height: 40px; /* Giới hạn tên sản phẩm */
+      overflow: hidden;
+    }
+  
+    .product-price {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      .old-price {
+        text-decoration: line-through;
+        color: #aaa;
+        margin-right: 5px;
+      }
+  
+      .new-price {
+        font-size: 16px;
+        font-weight: bold;
+        color: #e53935;
+      }
+  
+      .label {
+        margin-left: 5px;
+        font-size: 12px;
+        color: #fff;
+        background-color: #e53935;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+    }
+  }
+  
