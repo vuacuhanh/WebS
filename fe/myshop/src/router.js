@@ -8,6 +8,7 @@ import LoginForm from './pages/users/Login/LoginForm'
 import { RegisterForm } from './pages/users/Register/RegisterForm'
 import { SimpleLayout } from './pages/users/theme/SimpleLauout/SimpleLayout'
 import { Product } from './pages/users/ProductPage/Product'
+import { ProductDetail } from './pages/users/ProductDetailPage/ProductDetail'
 
 const renderUserBrowser = () =>{
     const userRouters = [
@@ -26,6 +27,11 @@ const renderUserBrowser = () =>{
             component:<Product />,
             layout: MasterLayout
         },
+        {
+          path:ROUTERS.USER.PRODUCTDETAIL,
+          component:<ProductDetail />,
+          layout: MasterLayout
+      },
         {
             path:ROUTERS.USER.LOGIN,
             component:<LoginForm />,

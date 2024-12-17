@@ -61,8 +61,8 @@ export const HeaderLayout = () => {
   };
 
   return (
-    <header id="header" className="header d-flex flex-column sticky-top">
-      <div className="container-fluid container-xxl d-flex flex-column">
+    <header id="header" className="header container-fluid d-flex flex-column sticky-top">
+      <div className="d-flex flex-column aligh-items-center justify-between">
         {/* Top Section */}
         <div className="top-section d-flex justify-content-end">
           <ul className="d-flex list-unstyled">

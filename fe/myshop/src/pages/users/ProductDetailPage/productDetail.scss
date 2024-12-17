@@ -1,0 +1,199 @@
+.product-detail {
+    padding: 20px;
+  
+    .product-container {
+      display: flex;
+      gap: 20px;
+    
+      .product-images {
+        flex: 1;
+  
+        .main-image {
+          width: 100%;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          max-width: 550px;
+        }
+  
+        .thumbnail-images {
+          display: flex;
+          gap: 10px;
+          margin-top: 10px;
+  
+          img {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+  
+            &:hover {
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
+  
+      .product-info {
+        flex: 1;
+  
+        h1 {
+          font-size: 24px;
+          margin-bottom: 10px;
+        }
+  
+        .price {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+  
+          .old-price {
+            text-decoration: line-through;
+            color: #888;
+          }
+  
+          .new-price {
+            color: red;
+            font-size: 20px;
+            font-weight: bold;
+          }
+        }
+  
+        .product-features {
+          margin: 10px 0;
+  
+          li {
+            list-style: disc;
+            margin-left: 20px;
+          }
+        }
+  
+        .sizes {
+          margin: 10px 0;
+  
+          .size-option {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+  
+            &.out-of-stock {
+              color: red;
+              text-decoration: line-through;
+            }
+          }
+        }
+  
+        .description {
+          margin-top: 20px;
+          line-height: 1.5;
+        }
+      }
+
+      /* Tăng giảm số lượng */
+      .quality {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+
+        span {
+          font-size: 18px;
+          margin: 0 10px;
+        }
+
+        .btn-decrease,
+        .btn-increase {
+          width: 30px;
+          height: 30px;
+          background-color: #ddd;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 20px;
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #ccc;
+          }
+        }
+      }
+
+      /* Nút Thêm vào giỏ hàng và Mua ngay */
+      .Buy {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+
+        .btn-addToCart,
+        .btn-buy {
+          padding: 10px 20px;
+          font-size: 16px;
+          font-weight: bold;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &.btn-addToCart {
+            background-color: var(--accent-color);
+            color: white;
+
+            &:hover {
+              background-color: #45a049;
+            }
+          }
+
+          &.btn-buy {
+            background-color: #ff9800;
+            color: white;
+
+            &:hover {
+              background-color: #f57c00;
+            }
+          }
+        }
+    }
+}
+  
+    .related-products {
+      margin-top: 30px;
+  
+      h2 {
+        margin-bottom: 15px;
+        text-align: center;
+        border-bottom: 1px solid var(--accent-color);
+        padding-bottom: 10px;
+      }
+  
+      .product-list {
+        padding-top: 10px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        .related-product-item {
+          width: 200px;
+          text-align: center;
+  
+          img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+          }
+  
+          .price {
+            color: red;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+  
