@@ -12,7 +12,7 @@
           width: 100%;
           border: 1px solid #ddd;
           border-radius: 5px;
-          max-width: 550px;
+          max-width: 500px;
         }
   
         .thumbnail-images {
@@ -92,7 +92,9 @@
           line-height: 1.5;
         }
       }
-
+      .quality-text {
+        padding: 10px;
+      }
       /* Tăng giảm số lượng */
       .quality {
         display: flex;
@@ -108,7 +110,7 @@
         .btn-increase {
           width: 30px;
           height: 30px;
-          background-color: #ddd;
+          background-color: #010101;
           border: none;
           border-radius: 5px;
           cursor: pointer;

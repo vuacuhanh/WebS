@@ -9,6 +9,7 @@ import { RegisterForm } from './pages/users/Register/RegisterForm'
 import { SimpleLayout } from './pages/users/theme/SimpleLauout/SimpleLayout'
 import { Product } from './pages/users/ProductPage/Product'
 import { ProductDetail } from './pages/users/ProductDetailPage/ProductDetail'
+import { ShoppingCart } from './pages/users/ShoppingCart/ShoppingCart'
 
 const renderUserBrowser = () =>{
     const userRouters = [
@@ -31,7 +32,12 @@ const renderUserBrowser = () =>{
           path:ROUTERS.USER.PRODUCTDETAIL,
           component:<ProductDetail />,
           layout: MasterLayout
-      },
+        },
+        {
+          path:ROUTERS.USER.SHOPPINGCART,
+          component:<ShoppingCart/>,
+          layout: MasterLayout
+        },
         {
             path:ROUTERS.USER.LOGIN,
             component:<LoginForm />,

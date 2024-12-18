@@ -77,7 +77,7 @@ export const ProductDetail = () => {
     <div className="product-detail container-fluid">
       {/* Phần chính - ảnh và thông tin */}
       <div className="product-container row">
-        <div className="product-images col-md-6">
+        <div className="product-images col-md-5 ms-5">
           <img
             src={product.images[0]}
             alt={product.name}
@@ -123,6 +123,7 @@ export const ProductDetail = () => {
 
           {/* Tăng giảm số lượng */}
           <div className="quality d-flex align-items-center mt-3">
+            <div className="quality-text">Số lượng:</div>
             <button onClick={handleDecreaseQuantity} className="btn-decrease btn btn-secondary">
               -
             </button>
