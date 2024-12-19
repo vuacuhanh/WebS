@@ -73,9 +73,7 @@ const renderUserBrowser = () =>{
 };
 
 const RouterCustom = () => {
-  return renderUserBrowser (
-    <div>Custom</div>
-  )
+  return renderUserBrowser ();
 }
 
 export default RouterCustom

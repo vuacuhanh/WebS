@@ -1,48 +1,53 @@
 const express = require('express');
-const cors = require('cors');  // Import thư viện cors
-const connection = require('./connectDB'); // Import kết nối MySQL
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const connection = require('./connectDB');
+const bcrypt = require('bcrypt');
 
 const app = express();
-const port = 3001; // Port cho backend
+const port = 3001;
 
-// Cấu hình CORS để cho phép frontend (React) trên cổng 3000 kết nối
 app.use(cors({
-  origin: 'http://localhost:3000', 
-  methods: ['GET', 'POST'], 
-  allowedHeaders: ['Content-Type'], 
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
 }));
-// API: Đăng nhập
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;  // Lấy username và password từ request
 
-  const query = 'SELECT * FROM USER WHERE UserName = ?';
+app.use(bodyParser.json());
+
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+  console.log('Received login request:', req.body);  // Ghi log dữ liệu nhận được
+
+  const query = 'SELECT * FROM USER WHERE Email = ?';
   connection.query(query, [username], (err, results) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ success: false, message: err.message });
     }
 
     if (results.length === 0) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ success: false, message: 'User not found' });
     }
 
     const user = results[0];
+    console.log('User found:', user);  // Ghi log dữ liệu người dùng tìm thấy
 
-    // Kiểm tra mật khẩu
     bcrypt.compare(password, user.Password, (err, isMatch) => {
       if (err) {
-        return res.status(500).json({ error: err.message });
+        return res.status(500).json({ success: false, message: err.message });
       }
 
       if (!isMatch) {
-        return res.status(401).json({ message: 'Invalid password' });
+        return res.status(401).json({ success: false, message: 'Invalid password' });
       }
 
-      // Mật khẩu đúng, trả về thông tin người dùng
+      console.log('Password match, login successful');  // Ghi log khi đăng nhập thành công
       res.json({
+        success: true,
         message: 'Login successful',
         user: {
-          id: user.UserID,
-          username: user.UserName,
+          id: user.UserId,
+          fullname: user.FullName,
           email: user.Email,
           role: user.Role
         }
@@ -50,6 +55,7 @@ app.post('/api/login', (req, res) => {
     });
   });
 });
+
 
 // Middleware
 app.use(express.json());
