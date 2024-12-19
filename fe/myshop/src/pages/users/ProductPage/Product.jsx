@@ -1,49 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "./Product.scss";
 
 export const Product = () => {
-  const allProducts = [
-    {
-      id: 1,
-      category: "Áo Polo",
-      image: "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-      name: "Áo Polo Dáng Vừa Tay Ngắn No Style 78 Vol 24",
-      price: 147,
-      oldPrice: 197,
-      label: "Giá tốt",
-    },
-    {
-      id: 2,
-      category: "Quần Thun",
-      image: "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-      name: "Quần Thun Dài Nam Basic",
-      price: 177,
-    },
-    {
-      id: 3,
-      category: "Đồ Nam",
-      image: "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-      name: "Áo Polo Dáng Vừa Tay Ngắn Cool Touch 06 Vol 24",
-      price: 287,
-    },
-    {
-      id: 4,
-      category: "Đồ Nữ",
-      image: "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-      name: "Áo Nữ Form Rộng Tay Ngắn Mới 2024",
-      price: 287,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null); // Sử dụng CategoryId thay vì CategoryName
 
-  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
+  useEffect(() => {
+    // Lấy danh sách sản phẩm
+    axios.get('http://localhost:3001/api/products')
+      .then(response => {
+        setProducts(response.data); // Lưu sản phẩm vào state
+      })
+      .catch(error => {
+        console.error('Có lỗi khi lấy dữ liệu:', error);
+      });
 
-  const categories = ["Tất cả", "Áo Polo", "Quần Thun", "Đồ Nam", "Đồ Nữ"];
+    // Lấy danh sách danh mục
+    axios.get('http://localhost:3001/api/categories')
+      .then(response => {
+        setCategories(response.data); // Lưu danh mục vào state
+      })
+      .catch(error => {
+        console.error('Có lỗi khi lấy danh mục:', error);
+      });
+  }, []);
 
-  // Lọc sản phẩm theo danh mục
-  const filteredProducts =
-    selectedCategory === "Tất cả"
-      ? allProducts
-      : allProducts.filter((product) => product.category === selectedCategory);
+  // Lọc sản phẩm theo CategoryId
+  const filteredProducts = selectedCategory === null
+    ? products
+    : products.filter((product) => product.CategoryId === selectedCategory);
 
   return (
     <div className="container-fluid container-xxl">
@@ -56,15 +43,23 @@ export const Product = () => {
           <div className="menu">
             <h5 className="menu-title">Danh Mục</h5>
             <ul className="menu-list">
-              {categories.map((category, index) => (
+              {/* Danh sách danh mục */}
+              {categories.map((category) => (
                 <li
-                  key={index}
-                  className={`menu-item ${selectedCategory === category ? "active" : ""}`}
-                  onClick={() => setSelectedCategory(category)}
+                  key={category.CategoryId}
+                  className={`menu-item ${selectedCategory === category.CategoryId ? "active" : ""}`}
+                  onClick={() => setSelectedCategory(category.CategoryId)} // Sử dụng CategoryId khi chọn
                 >
-                  {category}
+                  {category.CategoryName}
                 </li>
               ))}
+              {/* Thêm mục "Tất cả" */}
+              <li
+                className={`menu-item ${selectedCategory === null ? "active" : ""}`}
+                onClick={() => setSelectedCategory(null)}
+              >
+                Tất cả
+              </li>
             </ul>
           </div>
         </div>
@@ -73,21 +68,19 @@ export const Product = () => {
         <div className="col-md-9">
           <div className="row">
             {filteredProducts.map((product) => (
-              <div className="col-md-3 col-6 mb-4" key={product.id}>
+              <div className="col-md-3 col-6 mb-4" key={product.ProductId}>
                 <div className="product-card">
                   {/* Bookmark */}
                   <div className="bookmark"></div>
 
                   {/* Hình ảnh */}
-                  <img src={product.image} alt={product.name} className="product-image" />
+                  <img src={product.ImageUrl} alt={product.ProductName} className="product-image" />
 
                   {/* Nội dung */}
                   <div className="product-info">
-                    <p className="product-name">{product.name}</p>
+                    <p className="product-name">{product.ProductName}</p>
                     <div className="product-price">
-                      {product.oldPrice && <span className="old-price">{product.oldPrice}</span>}
-                      <span className="new-price">{product.price}</span>
-                      {product.label && <span className="label">{product.label}</span>}
+                      <span className="new-price">{product.Price}</span>
                     </div>
                   </div>
                 </div>
