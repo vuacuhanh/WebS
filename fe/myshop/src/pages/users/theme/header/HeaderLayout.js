@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import "./Header.scss";
 import { ROUTERS } from "../../../../utils/routers";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
+import { MasterLayout } from "../MasterLayout/MasterLayout";
 
 export const HeaderLayout = () => {
-  const [activeMenu, setActiveMenu] = useState("Home"); // Quản lý menu đang active
-
+  const [activeMenu, setActiveMenu] = useState("Home"); 
+  const navigate = useNavigate();
   const menus = [
-    { name: "Home", path: ROUTERS.USER.HOME },
-    { name: "About", path: ROUTERS.USER.ABOUT },
-    { name: "Services", path: ROUTERS.USER.SERVICES },
+    { name: "Home", path: ROUTERS.USER.HOME,layout:MasterLayout },
+    { name: "About", path: ROUTERS.USER.PROFILE, layout:MasterLayout },
+    { name: "Product", path: ROUTERS.USER.PRODUCT,layout:MasterLayout },
     { name: "Features", path: ROUTERS.USER.FEATURES },
     { name: "Pricing", path: ROUTERS.USER.PRICING },
     {
@@ -95,7 +96,7 @@ export const HeaderLayout = () => {
             />
             <i className="bi bi-search search-icon"></i>
           </div>
-          <div className="shopping-cart">
+          <div className="shopping-cart" onClick={() => navigate("/shoppingCart")}>
             <i className="bi bi-cart-fill cart-icon"></i>
           </div>
         </div>

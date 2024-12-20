@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
-  console.log('Received login request:', req.body);  // Ghi log dữ liệu nhận được
+  console.log('Received login request:', req.body); // Ghi log dữ liệu nhận được
 
   const query = 'SELECT * FROM USER WHERE Email = ?';
   connection.query(query, [username], (err, results) => {
@@ -30,31 +30,27 @@ app.post('/api/login', (req, res) => {
     }
 
     const user = results[0];
-    console.log('User found:', user);  // Ghi log dữ liệu người dùng tìm thấy
+    console.log('User found:', user); // Ghi log dữ liệu người dùng tìm thấy
 
-    bcrypt.compare(password, user.Password, (err, isMatch) => {
-      if (err) {
-        return res.status(500).json({ success: false, message: err.message });
+    // Tắt bcrypt và so sánh trực tiếp mật khẩu
+    if (password !== user.Password) {
+      return res.status(401).json({ success: false, message: 'Invalid password' });
+    }
+
+    console.log('Password match, login successful'); // Ghi log khi đăng nhập thành công
+    res.json({
+      success: true,
+      message: 'Login successful',
+      user: {
+        id: user.UserId,
+        fullname: user.FullName,
+        email: user.Email,
+        role: user.Role
       }
-
-      if (!isMatch) {
-        return res.status(401).json({ success: false, message: 'Invalid password' });
-      }
-
-      console.log('Password match, login successful');  // Ghi log khi đăng nhập thành công
-      res.json({
-        success: true,
-        message: 'Login successful',
-        user: {
-          id: user.UserId,
-          fullname: user.FullName,
-          email: user.Email,
-          role: user.Role
-        }
-      });
     });
   });
 });
+
 
 
 // Middleware
