@@ -1,55 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import "./productDetail.scss";
 
 export const ProductDetail = () => {
-  const product = {
-    id: 1,
-    name: "Áo Polo No Style 78 Vol 24 Đen",
-    priceOld: 197000,
-    priceNew: 147000,
-    sizes: [
-      { size: "S", stock: 43 },
-      { size: "M", stock: 43 },
-      { size: "L", stock: 43 },
-      { size: "XL", stock: 42 },
-    ],
-    description: `Áo Polo thời trang ngắn tay, thiết kế thanh lịch, phù hợp trong nhiều hoàn cảnh. Chất liệu cao cấp co giãn 4 chiều, thoáng mát và mềm mịn.`,
-    features: [
-      "Thoáng mát, ít nhăn và bền màu.",
-      "Co giãn 4 chiều, thoải mái khi vận động.",
-      "Chất liệu 61% Polyester, 39% Cotton.",
-    ],
-    images: [
-      "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-      "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-      "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-      "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-    ],
-  };
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [quantity, setQuantity] = useState(1);
 
-  const relatedProducts = [
-    {
-      id: 2,
-      name: "Áo Polo Tay Ngắn Pique",
-      price: 177000,
-      image: "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-    },
-    {
-      id: 3,
-      name: "Áo thun",
-      price: 177000,
-      image: "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-    },
-    {
-      id: 4,
-      name: "Áo Polo Nam Màu Be",
-      price: 177000,
-      image: "https://product.hstatic.net/1000096703/product/1_52417c772bfd430cb64541d09dc9903c_master.jpg",
-    },
-  ];
+  useEffect(() => {
+    axios.get(`http://localhost:3001/api/products/${id}`)
+      .then(response => {
+        setProduct(response.data);
+      })
+      .catch(error => {
+        console.error('Có lỗi khi lấy chi tiết sản phẩm:', error);
+      });
 
-  const [quantity, setQuantity] = useState(1); // Trạng thái cho số lượng sản phẩm
-  const [selectedSize, setSelectedSize] = useState(""); // Trạng thái cho kích cỡ
+    axios.get('http://localhost:3001/api/products')
+      .then(response => {
+        setRelatedProducts(response.data);
+      })
+      .catch(error => {
+        console.error('Có lỗi khi lấy sản phẩm liên quan:', error);
+      });
+  }, [id]);
 
   const handleIncreaseQuantity = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -60,77 +36,49 @@ export const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    // Logic thêm vào giỏ hàng
-    alert(`Đã thêm ${quantity} sản phẩm ${product.name} vào giỏ hàng`);
+    alert(`Đã thêm ${quantity} sản phẩm ${product.ProductName} vào giỏ hàng`);
   };
 
   const handleBuyNow = () => {
-    // Logic mua ngay
-    alert(`Mua ngay ${quantity} sản phẩm ${product.name}`);
+    alert(`Mua ngay ${quantity} sản phẩm ${product.ProductName}`);
   };
 
-  const handleSizeChange = (size) => {
-    setSelectedSize(size);
-  };
+  if (!product) {
+    return <div>Đang tải chi tiết sản phẩm...</div>;
+  }
+
+  const relatedProductsRow1 = relatedProducts.slice(0, 5);
+  const relatedProductsRow2 = relatedProducts.slice(5, 10);
 
   return (
     <div className="product-detail container-fluid">
-      {/* Phần chính - ảnh và thông tin */}
       <div className="product-container row">
         <div className="product-images col-md-5 ms-5">
           <img
-            src={product.images[0]}
-            alt={product.name}
+            src={product.ImageUrl}
+            alt={product.ProductName}
             className="main-image img-fluid"
           />
-          <div className="thumbnail-images d-flex gap-2 mt-2">
-            {product.images.map((image, index) => (
-              <img key={index} src={image} alt="thumbnail" className="img-thumbnail" />
-            ))}
-          </div>
         </div>
 
         <div className="product-info col-md-6">
-          <h1>{product.name}</h1>
+          <h1>{product.ProductName}</h1>
           <div className="price d-flex align-items-center gap-2">
-            <span className="old-price text-decoration-line-through text-muted">
-              {product.priceOld.toLocaleString()} đ
-            </span>
             <span className="new-price text-danger fs-5 fw-bold">
-              {product.priceNew.toLocaleString()} đ
+              {parseFloat(product.Price).toLocaleString()} đ
             </span>
           </div>
-          <ul className="product-features">
-            {product.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-          <div className="sizes mt-3">
-            <p>Size:</p>
-            {product.sizes.map((size) => (
-              <span
-                key={size.size}
-                className={`size-option btn btn-outline-secondary me-2 ${
-                  size.stock === 0 ? "out-of-stock" : ""} ${
-                  selectedSize === size.size ? "selected" : ""}`}
-                onClick={() => handleSizeChange(size.size)}
-              >
-                {size.size} ({size.stock > 0 ? `${size.stock} Cửa hàng` : "Hết hàng"})
-              </span>
-            ))}
+          <div className="size-color mt-3">
+            <p><strong>Size:</strong> {product.Size}</p>
+            <p><strong>Color:</strong> {product.Color}</p>
           </div>
-          <p className="description mt-3">{product.description}</p>
+          <p className="description mt-3">{product.Description}</p>
 
-          {/* Tăng giảm số lượng */}
           <div className="quality d-flex align-items-center mt-3">
             <div className="quality-text">Số lượng:</div>
-            <button onClick={handleDecreaseQuantity} className="btn-decrease btn btn-secondary">
-              -
-            </button>
+            <button onClick={handleDecreaseQuantity} className="btn-decrease btn btn-secondary"> - </button>
             <span className="mx-3">{quantity}</span>
-            <button onClick={handleIncreaseQuantity} className="btn-increase btn btn-secondary">
-              +
-            </button>
+            <button onClick={handleIncreaseQuantity} className="btn-increase btn btn-secondary"> + </button>
           </div>
           <div className="Buy d-flex gap-3 mt-4">
             <button className="btn-addToCart btn btn-success" onClick={handleAddToCart}>
@@ -143,17 +91,32 @@ export const ProductDetail = () => {
         </div>
       </div>
 
-      {/* Sản phẩm gợi ý */}
+      {/* Hiển thị sản phẩm liên quan */}
       <div className="related-products mt-5">
         <h2>CÓ THỂ BẠN QUAN TÂM</h2>
-        <div className="product-list d-flex gap-4">
-          {relatedProducts.map((item) => (
-            <div key={item.id} className="related-product-item text-center">
-              <img src={item.image} alt={item.name} className="img-fluid rounded mb-2" />
-              <p>{item.name}</p>
-              <span className="price text-danger">{item.price.toLocaleString()} đ</span>
+        <div className="product-list row">
+          <div className="col-12 mb-3 product-item">
+            <div className="d-flex gap-4 justify-content-center">
+              {relatedProductsRow1.map((item) => (
+                <div key={item.ProductId} className="related-product-item text-center">
+                  <img src={item.ImageUrl} alt={item.ProductName} className="img-fluid rounded mb-2" />
+                  <p>{item.ProductName}</p>
+                  <span className="price text-danger">{item.Price.toLocaleString()} đ</span>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div className="col-12 mb-3 product-item">
+            <div className="d-flex gap-4 justify-content-center">
+              {relatedProductsRow2.map((item) => (
+                <div key={item.ProductId} className="related-product-item text-center">
+                  <img src={item.ImageUrl} alt={item.ProductName} className="img-fluid rounded mb-2" />
+                  <p>{item.ProductName}</p>
+                  <span className="price text-danger">{item.Price.toLocaleString()} đ</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

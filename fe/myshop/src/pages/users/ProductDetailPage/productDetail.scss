@@ -173,12 +173,17 @@
         border-bottom: 1px solid var(--accent-color);
         padding-bottom: 10px;
       }
-  
+      
       .product-list {
         padding-top: 10px;
         display: flex;
         gap: 20px;
         justify-content: center;
+        .product-item {
+          display: flex;
+          justify-content: center;
+          
+        }
         .related-product-item {
           width: 200px;
           text-align: center;
@@ -194,6 +199,7 @@
             color: red;
             font-weight: bold;
           }
+          
         }
       }
     }

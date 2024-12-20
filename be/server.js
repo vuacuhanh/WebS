@@ -89,6 +89,26 @@ app.get('/api/products', (req, res) => {
     }
   });
 });
+
+// API: Lấy chi tiết sản phẩm
+app.get('/api/products/:id', (req, res) => {
+  const productId = req.params.id;
+  const query = 'SELECT * FROM PRODUCT WHERE ProductId = ?';
+  connection.query(query, [productId], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'Product not found' });
+    } else {
+      // Đảm bảo rằng product có tất cả các trường cần thiết
+      const product = results[0];
+      product.priceOld = product.priceOld || null;  // Đảm bảo `priceOld` tồn tại
+      product.priceNew = product.Price; // Giá hiện tại là `Price`
+      res.json(product);
+    }
+  });
+});
+
 // API: Lấy danh sách đơn hàng
 app.get('/api/orders', (req, res) => {
   const query = 'SELECT * FROM `ORDER`';

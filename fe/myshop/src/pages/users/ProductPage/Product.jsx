@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "./Product.scss";
-
+import { Link } from 'react-router-dom';
 export const Product = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -11,20 +11,12 @@ export const Product = () => {
     // Lấy danh sách sản phẩm
     axios.get('http://localhost:3001/api/products')
       .then(response => {
-        setProducts(response.data); // Lưu sản phẩm vào state
+        setProducts(response.data); 
       })
-      .catch(error => {
-        console.error('Có lỗi khi lấy dữ liệu:', error);
-      });
-
-    // Lấy danh sách danh mục
     axios.get('http://localhost:3001/api/categories')
       .then(response => {
-        setCategories(response.data); // Lưu danh mục vào state
+        setCategories(response.data); 
       })
-      .catch(error => {
-        console.error('Có lỗi khi lấy danh mục:', error);
-      });
   }, []);
 
   // Lọc sản phẩm theo CategoryId
@@ -38,7 +30,6 @@ export const Product = () => {
         <div className="col-12 m-3">Sản phẩm</div>
       </div>
       <div className="row">
-        {/* Sidebar menu */}
         <div className="col-md-3">
           <div className="menu">
             <h5 className="menu-title">Danh Mục</h5>
@@ -68,7 +59,7 @@ export const Product = () => {
         <div className="col-md-9">
           <div className="row">
             {filteredProducts.map((product) => (
-              <div className="col-md-3 col-6 mb-4" key={product.ProductId}>
+              <Link to={`/product/${product.ProductId}`} className="col-md-3 col-6 mb-4" key={product.ProductId}>
                 <div className="product-card">
                   {/* Bookmark */}
                   <div className="bookmark"></div>
@@ -84,7 +75,7 @@ export const Product = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
