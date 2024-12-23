@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useCart } from '../../../cartcontext';
 import "./productDetail.scss";
 
 export const ProductDetail = () => {
@@ -8,6 +9,7 @@ export const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart(); // Lấy hàm thêm giỏ hàng từ Context
 
   useEffect(() => {
     axios.get(`http://localhost:3001/api/products/${id}`)
@@ -36,7 +38,10 @@ export const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    alert(`Đã thêm ${quantity} sản phẩm ${product.ProductName} vào giỏ hàng`);
+    if (product) {
+      addToCart(product, quantity);
+      alert(`Đã thêm ${quantity} sản phẩm ${product.ProductName} vào giỏ hàng.`);
+    }
   };
 
   const handleBuyNow = () => {

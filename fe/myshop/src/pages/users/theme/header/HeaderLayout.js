@@ -5,7 +5,9 @@ import { Link, useNavigate  } from "react-router-dom";
 import { MasterLayout } from "../MasterLayout/MasterLayout";
 
 export const HeaderLayout = () => {
-  const [activeMenu, setActiveMenu] = useState("Home"); 
+  const [activeMenu, setActiveMenu] = useState("Home");
+  const [searchQuery, setSearchQuery] = useState(""); // Trạng thái cho query tìm kiếm
+  const [products, setProducts] = useState([]); // Trạng thái lưu sản phẩm tìm được
   const navigate = useNavigate();
   const menus = [
     { name: "Home", path: ROUTERS.USER.HOME,layout:MasterLayout },

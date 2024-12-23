@@ -131,6 +131,19 @@ app.get('/api/orderdetails', (req, res) => {
     }
   });
 });
+// API: Tìm kiếm sản phẩm theo tên
+app.get('/api/products/search', (req, res) => {
+  const searchQuery = req.query.q;
+  const query = 'SELECT * FROM PRODUCT WHERE ProductName LIKE ?';
+  connection.query(query, [`%${searchQuery}%`], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 // API: Lấy giỏ hàng
 app.get('/api/carts', (req, res) => {
   const query = 'SELECT * FROM CART';
