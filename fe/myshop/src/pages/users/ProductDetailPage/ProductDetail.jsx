@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { useCart } from '../../../cartcontext';
 import "./productDetail.scss";
@@ -99,26 +99,40 @@ export const ProductDetail = () => {
       {/* Hiển thị sản phẩm liên quan */}
       <div className="related-products mt-5">
         <h2>CÓ THỂ BẠN QUAN TÂM</h2>
-        <div className="product-list row">
-          <div className="col-12 mb-3 product-item">
-            <div className="d-flex gap-4 justify-content-center">
+        <div className="row">
+          <div className="col-md-12 ">
+            <div className="row product-list">
               {relatedProductsRow1.map((item) => (
-                <div key={item.ProductId} className="related-product-item text-center">
-                  <img src={item.ImageUrl} alt={item.ProductName} className="img-fluid rounded mb-2" />
-                  <p>{item.ProductName}</p>
-                  <span className="price text-danger">{item.Price.toLocaleString()} đ</span>
-                </div>
+                <Link to={`/product/${item.ProductId}`} className="col-md-2 col-6 mb-4" key={item.ProductId}>
+                  <div className="product-card">
+                    <div className="bookmark"></div>
+                    <img src={item.ImageUrl} alt={item.ProductName} className="product-image" />
+                    <div className="product-info">
+                      <p className="product-name">{item.ProductName}</p>
+                      <div className="product-price">
+                        <span className="new-price">{item.Price.toLocaleString()} đ</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
-          <div className="col-12 mb-3 product-item">
-            <div className="d-flex gap-4 justify-content-center">
+          <div className="col-md-12">
+            <div className="row product-list">
               {relatedProductsRow2.map((item) => (
-                <div key={item.ProductId} className="related-product-item text-center">
-                  <img src={item.ImageUrl} alt={item.ProductName} className="img-fluid rounded mb-2" />
-                  <p>{item.ProductName}</p>
-                  <span className="price text-danger">{item.Price.toLocaleString()} đ</span>
-                </div>
+                <Link to={`/product/${item.ProductId}`} className="col-md-2 col-6 mb-4" key={item.ProductId}>
+                  <div className="product-card">
+                    <div className="bookmark"></div>
+                    <img src={item.ImageUrl} alt={item.ProductName} className="product-image" />
+                    <div className="product-info">
+                      <p className="product-name">{item.ProductName}</p>
+                      <div className="product-price">
+                        <span className="new-price">{item.Price.toLocaleString()} đ</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
