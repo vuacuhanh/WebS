@@ -32,6 +32,7 @@
     }
 
     .shopping-cart {
+        position: relative;
         font-size: 25px;
         margin-right: 75px;
         padding: 10px;
@@ -48,6 +49,17 @@
     }
     .cart-icon:hover {
         color: rgba(1, 78, 24, 0.768); 
+    }
+
+    .cart-count {
+      position: absolute;
+      top: 18px;
+      right: 11px;
+      background-color: red;
+      color: white;
+      border-radius: 60%;
+      padding: 0 6px;
+      font-size: 12px;
     }
 
     .search-bar {

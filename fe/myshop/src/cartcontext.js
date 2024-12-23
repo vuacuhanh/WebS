@@ -16,13 +16,11 @@ export const CartProvider = ({ children }) => {
       return [...prevItems, { ...product, quantity }];
     });
   };
-  
-  // Xóa sản phẩm khỏi giỏ
+
   const removeFromCart = (ProductId) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.ProductId !== ProductId));
   };
-  
-  // Giảm số lượng
+
   const decreaseQuantity = (ProductId) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
@@ -30,8 +28,7 @@ export const CartProvider = ({ children }) => {
       )
     );
   };
-  
-  // Tăng số lượng
+
   const increaseQuantity = (ProductId) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
@@ -39,12 +36,11 @@ export const CartProvider = ({ children }) => {
       )
     );
   };
-  
+
+  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0); // Tính tổng số lượng sản phẩm trong giỏ hàng
 
   return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}
-    >
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, totalItems }}>
       {children}
     </CartContext.Provider>
   );

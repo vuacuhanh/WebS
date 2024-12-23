@@ -16,7 +16,7 @@ export const ShoppingCart = () => {
   // Tính tổng tiền
   const totalAmount = cartItems.reduce(
     (total, item) =>
-      selectedItems.includes(item.id) ? total + item.priceNew * item.quantity : total,
+      selectedItems.includes(item.ProductId) ? total + item.priceNew * item.quantity : total,
     0
   );
 
@@ -27,8 +27,8 @@ export const ShoppingCart = () => {
 
         {cartItems.length === 0 ? (
           <div className="text-center mt-5">
-            <img src="https://aillavietnam.com/assets/images/no-cart.png" alt="No cart" />
-            <h4 className="text-muted">Giỏ hàng của bạn đang trống</h4>
+            <img src="https://aillavietnam.com/assets/images/no-cart.png" alt="No cart" className="NoCart" />
+            <h4 className="fw-bold">Giỏ hàng của bạn đang trống</h4>
             <button className="btn btn-primary mt-3">Mua sắm ngay</button>
           </div>
         ) : (

@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import "./Header.scss";
 import { ROUTERS } from "../../../../utils/routers";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MasterLayout } from "../MasterLayout/MasterLayout";
+import { useCart } from "../../../../cartcontext"; // Import useCart để lấy số lượng sản phẩm
 
 export const HeaderLayout = () => {
   const [activeMenu, setActiveMenu] = useState("Home");
   const [searchQuery, setSearchQuery] = useState(""); // Trạng thái cho query tìm kiếm
   const [products, setProducts] = useState([]); // Trạng thái lưu sản phẩm tìm được
+  const { totalItems } = useCart(); // Lấy tổng số lượng sản phẩm từ context
   const navigate = useNavigate();
   const menus = [
-    { name: "Home", path: ROUTERS.USER.HOME,layout:MasterLayout },
-    { name: "About", path: ROUTERS.USER.PROFILE, layout:MasterLayout },
-    { name: "Product", path: ROUTERS.USER.PRODUCT,layout:MasterLayout },
+    { name: "Home", path: ROUTERS.USER.HOME, layout: MasterLayout },
+    { name: "About", path: ROUTERS.USER.PROFILE, layout: MasterLayout },
+    { name: "Product", path: ROUTERS.USER.PRODUCT, layout: MasterLayout },
     { name: "Features", path: ROUTERS.USER.FEATURES },
     { name: "Pricing", path: ROUTERS.USER.PRICING },
     {
@@ -86,7 +88,7 @@ export const HeaderLayout = () => {
         <div className="middle-section d-flex align-items-center justify-content-between">
           <Link to="/" className="logo d-flex align-items-center">
             <h1 className="sitename">
-              <span>e</span>Startup
+              <span>X</span>QuanNe
             </h1>
           </Link>
           <div className="search-bar d-flex align-items-center">
@@ -100,6 +102,9 @@ export const HeaderLayout = () => {
           </div>
           <div className="shopping-cart" onClick={() => navigate("/shoppingCart")}>
             <i className="bi bi-cart-fill cart-icon"></i>
+            {totalItems > 0 && (
+              <span className="cart-count">{totalItems}</span> // Hiển thị số lượng sản phẩm trên biểu tượng giỏ hàng
+            )}
           </div>
         </div>
 
