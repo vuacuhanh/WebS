@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.scss';
-import { FaLock, FaUser, FaFacebook, FaEnvelope } from 'react-icons/fa';
+import { FaLock, FaFacebook, FaEnvelope } from 'react-icons/fa';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
