@@ -1,21 +1,4 @@
-/*!
 
-=========================================================
-* Paper Dashboard React - v1.3.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -41,7 +24,7 @@ function User() {
           <Col md="4">
             <Card className="card-user">
               <div className="image">
-                <img alt="..." src={require("assets/img/damir-bosnjak.jpg")} />
+                <img alt="..." src={require("../../../assets/admin/img/damir-bosnjak.jpg")} />
               </div>
               <CardBody>
                 <div className="author">
@@ -49,7 +32,7 @@ function User() {
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={require("assets/img/mike.jpg")}
+                      src={require("../../../assets/admin/img/mike.jpg")}
                     />
                     <h5 className="title">Chet Faker</h5>
                   </a>
@@ -99,7 +82,7 @@ function User() {
                           <img
                             alt="..."
                             className="img-circle img-no-padding img-responsive"
-                            src={require("assets/img/faces/ayo-ogunseinde-2.jpg")}
+                            src={require("../../../assets/admin/img/faces/ayo-ogunseinde-2.jpg")}
                           />
                         </div>
                       </Col>
@@ -128,7 +111,7 @@ function User() {
                           <img
                             alt="..."
                             className="img-circle img-no-padding img-responsive"
-                            src={require("assets/img/faces/joe-gardner-2.jpg")}
+                            src={require("../../../assets/admin/img/faces/joe-gardner-2.jpg")}
                           />
                         </div>
                       </Col>
@@ -157,7 +140,7 @@ function User() {
                           <img
                             alt="..."
                             className="img-circle img-no-padding img-responsive"
-                            src={require("assets/img/faces/clem-onojeghuo-2.jpg")}
+                            src={require("../../../assets/admin/img/faces/clem-onojeghuo-2.jpg")}
                           />
                         </div>
                       </Col>

@@ -19,7 +19,7 @@ import {
   Input,
 } from "reactstrap";
 
-import routes from "../../router";
+import { userRouters, adminRouters } from "../../router";
 
 function Header(props) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -40,11 +40,11 @@ function Header(props) {
   };
   const getBrand = () => {
     let brandName = "Default Brand";
-    routes.map((prop, key) => {
-      if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
-        brandName = prop.name;
+    const allRoutes = [...userRouters, ...adminRouters]; // Gộp các route thành mảng.
+    allRoutes.forEach((route) => {
+      if (window.location.href.indexOf(route.path) !== -1) {
+        brandName = route.name || "Default Brand";
       }
-      return null;
     });
     return brandName;
   };
